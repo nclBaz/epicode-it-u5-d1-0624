@@ -1,29 +1,19 @@
 package riccardogulin.u5d1.entities;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+@AllArgsConstructor
 public abstract class Student {
+
+	/*	@Setter(AccessLevel.NONE) // <-- Serve per dirgli di non creare il setter per questo campo
+		protected long id;*/
 	protected String name;
 	protected String surname;
 
-	public Student(String name, String surname) {
-		this.name = name;
-		this.surname = surname;
-	}
-
 	public abstract void answerQuestion();
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getSurname() {
-		return surname;
-	}
-
-	public void setSurname(String surname) {
-		this.surname = surname;
-	}
 }
