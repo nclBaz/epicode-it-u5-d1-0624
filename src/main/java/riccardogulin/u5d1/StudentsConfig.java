@@ -2,10 +2,9 @@ package riccardogulin.u5d1;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import riccardogulin.u5d1.entities.BackendStudent;
-import riccardogulin.u5d1.entities.FrontendStudent;
-import riccardogulin.u5d1.entities.FullstackStudent;
-import riccardogulin.u5d1.entities.Interviewer;
+import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Scope;
+import riccardogulin.u5d1.entities.*;
 
 @Configuration // Annotazione OBBLIGATORIA se vogliamo che questa classe venga presa in considerazione all'avvio dell'applicazione
 public class StudentsConfig {
@@ -30,7 +29,11 @@ public class StudentsConfig {
 		return "Ajeje";
 	}
 
-	@Bean
+	@Bean(name = "aldo") // Opzionalmente posso specificare un nome custom per il Bean, se non lo faccio verrà usato il nome del metodo
+	@Scope("prototype") // Annotazione OPZIONALE. Mi serve quando voglio che lo Scope non sia SINGLETON
+	// SINGLETON = c'è un'UNICA COPIA DELL'OGGETTO IN TUTTA L'APPLICAZIONE. Questo è il valore di default dello scope (ed è estremamente utile)
+	// PROTOTYPE = ogni volta che uso .getBean() mi verrà restituito un NUOVO OGGETTO scollegato dal precedente
+	// Esisto ulteriori opzioni per @Scope, le quali però hanno senso solo nel contesto di applicazioni web
 	public FullstackStudent getFSStudent() {
 		return new FullstackStudent("Aldo", "Baglio");
 	}
@@ -40,13 +43,15 @@ public class StudentsConfig {
 		return new FrontendStudent("Giovanni", "Storti");
 	}
 
-	@Bean
-	public BackendStudent getBEStudent() {
-		return new BackendStudent("Giacomo", "Poretti");
+	@Bean(name = "giacomo")
+	@Primary // Annotazione per risolvere le ambiguità. Ogni qualvolta ci sia un dubbio su
+	// quale Student scegliere, verrà scelto questo (una sorta di default)
+	public BackendStudent getBEStudent(String name) {
+		return new BackendStudent(name, "Poretti");
 	}
 
 	@Bean
-	public Interviewer getInterviewer(BackendStudent student) {
+	public Interviewer getInterviewer(Student student) {
 		return new Interviewer(student);
 	}
 

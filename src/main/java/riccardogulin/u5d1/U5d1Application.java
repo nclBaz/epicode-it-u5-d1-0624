@@ -3,9 +3,7 @@ package riccardogulin.u5d1;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import riccardogulin.u5d1.entities.BackendStudent;
-import riccardogulin.u5d1.entities.FrontendStudent;
-import riccardogulin.u5d1.entities.Interviewer;
+import riccardogulin.u5d1.entities.FullstackStudent;
 
 @SpringBootApplication
 public class U5d1Application {
@@ -31,14 +29,23 @@ public class U5d1Application {
 
 		// 2. Leggo i bean dal context tramite .getBean(), questo metodo prevede due modalità principali di lettura o tramite nome del bean
 		// o tramite il tipo (classe) del bean
-		FrontendStudent fs = context.getBean(FrontendStudent.class); // Tramite tipo
-		System.out.println(fs);
-		BackendStudent bs = (BackendStudent) context.getBean("getBEStudent"); // Tramite nome. Il nome del Bean è il nome del
+/*
+		FrontendStudent fe = context.getBean(FrontendStudent.class); // Tramite tipo
+		System.out.println(fe);
+		BackendStudent bs = (BackendStudent) context.getBean("giacomo"); // Tramite nome. Il nome del Bean è il nome del
 		// metodo (della classe di configurazione) se non specificato diversamente
 		System.out.println(bs);
 
 		Interviewer i = context.getBean(Interviewer.class);
 		i.askQuestion();
+*/
+
+
+		FullstackStudent fs = context.getBean(FullstackStudent.class);
+		fs.setName("Claudio");
+		System.out.println(fs);
+		FullstackStudent fs2 = context.getBean(FullstackStudent.class);
+		System.out.println(fs2);
 
 
 		// 3. Chiudo il context
